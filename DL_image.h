@@ -22,21 +22,28 @@ protected:
 
 private:
     void init();
+    void showImageDetail();
+    void updateImageFormat(int format);
 
 private:
-    /*Main Window Function*/
-    QPushButton *m_file;
+    /*Function*/
+    QPushButton *m_curfilepath;
     QLabel      *m_preview;
 
-    /*Main Window Image Information Title*/
-    QLabel      *m_FName;
-    QLabel      *m_FSize;
-    QLabel      *m_FFormat;
+    /*Image Information Title*/
+    QLabel      *m_TName;
+    QLabel      *m_TSize;
+    QLabel      *m_TFormat;
+    QLabel      *m_TDepth;
 
-    /*Main Window Image Information Detail*/
-    QLabel      *m_FileName;
-    QLabel      *m_FileSize;
-    QLabel      *m_FileFormat;
+    /*Image Information Detail*/
+    QLabel      *m_DName;
+    QLabel      *m_DSize;
+    QLabel      *m_DFormat;
+    QLabel      *m_DDepth;
+
+    /*Image*/
+    QImage      *m_LoadImage;
 
 };
 
