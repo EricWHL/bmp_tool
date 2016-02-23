@@ -69,7 +69,15 @@ void DL_Image::updateImageFormat(int format)
     case QImage::Format_Mono:
         break;
     case QImage::Format_RGB32:
-        m_DFormat->setText("32-bit RGB");
+        m_DFormat->setText("32-bit RGB format (0xffRRGGBB)");
+        break;
+    case QImage::Format_ARGB32:
+        m_DFormat->setText("32-bit ARGB format (0xAARRGGBB)");
+        break;
+    case QImage::Format_RGB16:
+        m_DFormat->setText("16-bit RGB format (5-6-5)");
+        break;
+    default :
         break;
     }
 }
