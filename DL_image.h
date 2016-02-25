@@ -12,6 +12,13 @@ public:
     explicit DL_Image(QWidget *parent = 0);
     ~DL_Image();
 
+    enum StackIamgeFormat{
+        Image_BMP,
+        Image_JPG,
+        Image_PNG,
+        Image_Invalid,
+    };
+
 signals:
 
 public slots:
@@ -23,12 +30,14 @@ protected:
 private:
     void init();
     void showImageDetail();
-    void updateImageFormat(int format);
+    void updateImageFormat();
+    int getFileBitDepth(QString filename);
 
 private:
     /*Function*/
     QPushButton *m_curfilepath;
     QLabel      *m_preview;
+    QString     m_curFile;
 
     /*Image Information Title*/
     QLabel      *m_TName;
