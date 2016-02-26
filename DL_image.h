@@ -72,13 +72,14 @@ private:
     void init();
     void showImageDetail();
     void updateImageFormat();
-    int getFileBitDepth(QString filename);
+    int getFileBitDepth(QString filename,QFileInfo *Finfo);
 
 private:
     /*Function*/
     QPushButton *m_curfilepath;
     QLabel      *m_preview;
     QFileInfo   *m_curFileInfo;
+
     /*BMP Information*/
     BITMAPFILEHEADER m_Header;
     BITMAPINFOHEADER m_HeaderInfo;

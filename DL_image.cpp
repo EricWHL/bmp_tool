@@ -100,7 +100,7 @@ void DL_Image::buttonshow()
         curFile=QFileDialog::getOpenFileName(this,
                                               tr("选择图像"),
                                               "",
-                                              tr("Images (*.png *.bmp *.jpg *.tif *.GIF )"));
+                                              tr("Images (*.png *.bmp *.jpg *.tif *.GIF *.*)"));
     if(curFile.isEmpty())
     {
          return;
@@ -108,7 +108,8 @@ void DL_Image::buttonshow()
     else
     {
         /* -- 2016-02-25 add begin zhaolong --*/
-        g_bitdepth = getFileBitDepth(curFile);
+        m_curFileInfo = new QFileInfo(curFile);
+        g_bitdepth = getFileBitDepth(curFile,m_curFileInfo);
         /* -- 2016-02-25 add end zhaolong --*/
 
         if(! ( m_LoadImage->load(curFile) ) ) //加载图像
@@ -120,7 +121,7 @@ void DL_Image::buttonshow()
             return;
         }
         m_preview->setPixmap(QPixmap::fromImage(*m_LoadImage));
-        m_curFileInfo = new QFileInfo(curFile);
+
         showImageDetail();
     }
 }
@@ -145,7 +146,7 @@ void DL_Image::buttonshow()
 *   zhaolong (2016.02.25)
 *
 *****************************************************************/
-int DL_Image::getFileBitDepth(QString filename)
+int DL_Image::getFileBitDepth(QString filename,QFileInfo *Finfo)
 {
     int bitdepth = 0;
     QFile file(filename);
@@ -156,7 +157,7 @@ int DL_Image::getFileBitDepth(QString filename)
         int flen = file.size();
 
         // 1 分配缓冲空间
-        char *pdata = new char [flen];
+        char *pdata = new char [flen + 56];
         if ( NULL == pdata )
         {
             QMessageBox::information(NULL, NULL, "malloc buffer failed...");
@@ -177,9 +178,33 @@ int DL_Image::getFileBitDepth(QString filename)
             }
             return 0;
         }
+        m_Header.bfType = 0x4D42;
+        m_Header.bfSize = flen + 54 + 2;
+        m_Header.bfOffBits = 54;
 
-        memcpy(&m_Header,pdata,sizeof(BITMAPFILEHEADER));
-        memcpy(&m_HeaderInfo,&pdata[14],sizeof(BITMAPINFOHEADER));
+        m_HeaderInfo.biWidth = 1280;
+        m_HeaderInfo.biHeight = 720;
+        m_HeaderInfo.biSize = 40;
+        m_HeaderInfo.biPlanes = 1;
+        m_HeaderInfo.biBitCount = 32;
+        m_HeaderInfo.biCompression = 0;
+        m_HeaderInfo.biSizeImage = flen + 2;
+        m_HeaderInfo.biXPelsPerMeter = 2834;
+        m_HeaderInfo.biYPelsPerMeter = 2834;
+
+        memcpy(pdata,&m_Header,sizeof(BITMAPFILEHEADER));
+        memcpy(&pdata[14],&m_HeaderInfo,sizeof(BITMAPINFOHEADER));
+        QFile fd(Finfo->filePath() + "change.bmp");
+        fd.open(QIODevice::WriteOnly);
+        fd.close();
+        fd.open(QIODevice::ReadWrite);
+        if ( fd.isOpen() )
+        {
+            //read or write the file "filename"
+            QDataStream newFile(&fd);
+            newFile.writeRawData(pdata,flen + 54);
+
+        }
 
         if( NULL != pdata )// 释放缓冲空间
         {
