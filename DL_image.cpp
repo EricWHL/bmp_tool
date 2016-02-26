@@ -40,6 +40,10 @@ void DL_Image::init()
     m_TFormat->setText("文件格式:");
     m_TDepth->setText("文件位深度:");
 
+    memset(&m_Header,0,sizeof(BITMAPFILEHEADER));
+    memset(&m_HeaderInfo,0,sizeof(BITMAPINFOHEADER));
+    memset(&m_ImageRGB,0,sizeof(RGBQUAD));
+
 }
 
 void DL_Image::resizeEvent(QResizeEvent *)
@@ -64,7 +68,7 @@ void DL_Image::showImageDetail()
     m_DSize->setText(QString::number(m_LoadImage->width()) + "*" + QString::number(m_LoadImage->height()));
     m_DName->setText(m_curFileInfo->fileName());
     /* -- 2016-02-25 change begin zhaolong -- */
-    m_DDepth->setText(QString::number(g_bitdepth));
+    m_DDepth->setText(QString::number(m_HeaderInfo.biBitCount));
     /* -- 2016-02-25 change end zhaolong -- */
     updateImageFormat();
     if(NULL != m_curFileInfo) {
@@ -76,13 +80,13 @@ void DL_Image::showImageDetail()
 void DL_Image::updateImageFormat()
 {
     /* -- 2016-02-25 change begin zhaolong -- */
-    if( 0 == g_bitdepth )
+    if( 0 == m_HeaderInfo.biBitCount )
     {
         m_DFormat->setText("not bmp ... ");
     }
     else
     {
-        m_DFormat->setText(QString::number(g_bitdepth) +QString("-bit RGB"));
+        m_DFormat->setText(QString::number(m_HeaderInfo.biBitCount) +QString("-bit RGB"));
     }
     /* -- 2016-02-25 change end zhaolong -- */
 }
@@ -173,8 +177,9 @@ int DL_Image::getFileBitDepth(QString filename)
             }
             return 0;
         }
-        int bmpflag = pdata[0]*0x100 + pdata[1];
-        bitdepth = pdata[0x1D]*0x100 + pdata[0x1C];
+
+        memcpy(&m_Header,pdata,sizeof(BITMAPFILEHEADER));
+        memcpy(&m_HeaderInfo,&pdata[14],sizeof(BITMAPINFOHEADER));
 
         if( NULL != pdata )// 释放缓冲空间
         {
@@ -184,7 +189,7 @@ int DL_Image::getFileBitDepth(QString filename)
 
 
         // 3 查验是否是bmp图片文件
-        if( bmpflag != 0x424D )
+        if( m_Header.bfType != 0x424D )
         {
             //QMessageBox::information(NULL, NULL, "it's not bmp file...");
             return 0;
