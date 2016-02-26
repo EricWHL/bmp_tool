@@ -10,6 +10,7 @@ DL_Image::DL_Image(QWidget *parent)
     : QWidget(parent)
     , m_curfilepath(new QPushButton(this))
     , m_preview(new QLabel(this))
+    , m_curFileInfo(NULL)
     , m_TName(new QLabel(this))
     , m_TSize(new QLabel(this))
     , m_TFormat(new QLabel(this))
@@ -61,11 +62,15 @@ void DL_Image::resizeEvent(QResizeEvent *)
 void DL_Image::showImageDetail()
 {
     m_DSize->setText(QString::number(m_LoadImage->width()) + "*" + QString::number(m_LoadImage->height()));
-    m_DName->setText(m_curFile);
+    m_DName->setText(m_curFileInfo->fileName());
     /* -- 2016-02-25 change begin zhaolong -- */
     m_DDepth->setText(QString::number(g_bitdepth));
     /* -- 2016-02-25 change end zhaolong -- */
     updateImageFormat();
+    if(NULL != m_curFileInfo) {
+        delete m_curFileInfo;
+        m_curFileInfo = NULL;
+    }
 }
 
 void DL_Image::updateImageFormat()
@@ -86,22 +91,23 @@ void DL_Image::updateImageFormat()
 void DL_Image::buttonshow()
 {
     qDebug()<<"ok!!!!!!!!!!!!!!!!!!!!";
-    QString m_curFile;
-        m_curFile=QFileDialog::getOpenFileName(this,
+
+    QString curFile;
+        curFile=QFileDialog::getOpenFileName(this,
                                               tr("选择图像"),
                                               "",
                                               tr("Images (*.png *.bmp *.jpg *.tif *.GIF )"));
-    if(m_curFile.isEmpty())
+    if(curFile.isEmpty())
     {
          return;
     }
     else
     {
         /* -- 2016-02-25 add begin zhaolong --*/
-        g_bitdepth = getFileBitDepth(m_curFile);
+        g_bitdepth = getFileBitDepth(curFile);
         /* -- 2016-02-25 add end zhaolong --*/
 
-        if(! ( m_LoadImage->load(m_curFile) ) ) //加载图像
+        if(! ( m_LoadImage->load(curFile) ) ) //加载图像
         {
             QMessageBox::information(this,
                                      tr("打开图像失败"),
@@ -110,6 +116,7 @@ void DL_Image::buttonshow()
             return;
         }
         m_preview->setPixmap(QPixmap::fromImage(*m_LoadImage));
+        m_curFileInfo = new QFileInfo(curFile);
         showImageDetail();
     }
 }
