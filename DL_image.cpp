@@ -168,7 +168,7 @@ int DL_Image::getFileBitDepth(QString filename,QFileInfo *Finfo)
 
         // 2 把数据读到缓冲
         QDataStream mystream(&file);
-        if ( -1 == mystream.readRawData(pdata + 56, flen))
+        if ( -1 == mystream.readRawData(pdata + 54, flen))
         {
             QMessageBox::information(NULL, NULL, "readRawData failed...");
             if( NULL != pdata )// 释放缓冲空间
@@ -189,8 +189,8 @@ int DL_Image::getFileBitDepth(QString filename,QFileInfo *Finfo)
         m_HeaderInfo.biBitCount = 32;
         m_HeaderInfo.biCompression = 0;
         m_HeaderInfo.biSizeImage = flen + 2;
-        m_HeaderInfo.biXPelsPerMeter = 2834;
-        m_HeaderInfo.biYPelsPerMeter = 2834;
+        m_HeaderInfo.biXPelsPerMeter = 3780;
+        m_HeaderInfo.biYPelsPerMeter = 3780;
 
         memcpy(pdata,&m_Header,sizeof(BITMAPFILEHEADER));
         memcpy(&pdata[14],&m_HeaderInfo,sizeof(BITMAPINFOHEADER));
