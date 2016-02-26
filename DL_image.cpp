@@ -168,7 +168,7 @@ int DL_Image::getFileBitDepth(QString filename,QFileInfo *Finfo)
 
         // 2 把数据读到缓冲
         QDataStream mystream(&file);
-        if ( -1 == mystream.readRawData(pdata, flen))
+        if ( -1 == mystream.readRawData(pdata + 56, flen))
         {
             QMessageBox::information(NULL, NULL, "readRawData failed...");
             if( NULL != pdata )// 释放缓冲空间
@@ -202,7 +202,7 @@ int DL_Image::getFileBitDepth(QString filename,QFileInfo *Finfo)
         {
             //read or write the file "filename"
             QDataStream newFile(&fd);
-            newFile.writeRawData(pdata,flen + 54);
+            newFile.writeRawData(pdata,flen + 56);
 
         }
 

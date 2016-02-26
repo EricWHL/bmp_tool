@@ -11,7 +11,7 @@ typedef unsigned short WORD;
 typedef unsigned long DWORD;
 typedef long LONG;
 
-#pragma pack (1)        /* 设置数据1字节对齐 */
+#pragma pack (2)        /* 设置数据1字节对齐 */
 typedef struct tagBITMAPFILEHEADER {
  WORD bfType;//固定为0x4d42
  DWORD bfSize; //文件大小
@@ -19,6 +19,7 @@ typedef struct tagBITMAPFILEHEADER {
  WORD bfReserved2; //保留字，同上
  DWORD bfOffBits; //实际位图数据的偏移字节数，即前三个部分长度之和
 } BITMAPFILEHEADER;
+#pragma pack () /* 取消数据1字节对齐 */
 
 typedef struct tagBITMAPINFOHEADER{
  //public:
@@ -44,7 +45,6 @@ typedef struct tagRGBQUAD {
  BYTE rgbRed; //该颜色的红色分量
  BYTE rgbReserved; //保留值
 } RGBQUAD;
-#pragma pack () /* 取消数据1字节对齐 */
 
 class DL_Image : public QWidget
 {
