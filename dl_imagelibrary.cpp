@@ -1,5 +1,5 @@
 #include <QFileDialog>
-
+#include <QMessageBox>
 #include "DL_imagelibrary.h"
 
 DL_Imagelibrary::DL_Imagelibrary(QWidget *parent)
@@ -35,7 +35,7 @@ void DL_Imagelibrary::loadFile()
         curFile=QFileDialog::getOpenFileName(this,
                                               tr("选择图像"),
                                               "",
-                                              tr("Images (*.png *.bmp *.jpg *.tif *.GIF *.*)"));
+                                              tr("Images library(*.bin *.*)"));
     if(curFile.isEmpty())
     {
          return;
@@ -49,7 +49,30 @@ void DL_Imagelibrary::loadFile()
 
 void DL_Imagelibrary::showFile(QString filename)
 {
+    QFile File(filename);
+    if(File.open(QIODevice::ReadOnly)) {
+        int flen = File.size();
+        char *p_data = new char [flen];
+        if ( NULL == p_data )
+        {
+            QMessageBox::information(NULL, NULL, "malloc buffer failed...");
 
+        }
+        memset(p_data, 0, flen);
+        QDataStream fstream(&File);
+        if ( -1 == fstream.readRawData(p_data, flen))
+        {
+            QMessageBox::information(NULL, NULL, "readRawData failed...");
+            if( NULL != p_data )// 释放缓冲空间
+            {
+                delete[] p_data;
+                p_data = NULL;
+            }
+
+        }
+        QImage a((uchar*)p_data,1280,720,QImage::Format_ARGB32);
+        m_preview->setPixmap(QPixmap::fromImage(a));
+    }
 }
 
 
