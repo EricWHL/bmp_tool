@@ -48,7 +48,7 @@ void DL_Image::init()
 
 void DL_Image::resizeEvent(QResizeEvent *)
 {
-    m_curfilepath->setGeometry(10,20,80,20);
+    m_curfilepath->setGeometry(10,20,150,20);
 
     m_TName->setGeometry(10,72,80,20);
     m_TSize->setGeometry(10,92,80,20);
@@ -94,8 +94,6 @@ void DL_Image::updateImageFormat()
 
 void DL_Image::buttonshow()
 {
-    qDebug()<<"ok!!!!!!!!!!!!!!!!!!!!";
-
     QString curFile;
         curFile=QFileDialog::getOpenFileName(this,
                                               tr("选择图像"),
