@@ -24,7 +24,7 @@ void DL_Imagelibrary::init()
 
 void DL_Imagelibrary::resizeEvent(QResizeEvent *)
 {
-    m_curfilepath->setGeometry(10,20,150,20);
+    m_curfilepath->setGeometry(10,20,150,25);
 
     m_preview->setGeometry(300,20,1280,720);
 }

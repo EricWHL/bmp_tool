@@ -48,7 +48,7 @@ void DL_Image::init()
 
 void DL_Image::resizeEvent(QResizeEvent *)
 {
-    m_curfilepath->setGeometry(10,20,150,20);
+    m_curfilepath->setGeometry(10,20,150,25);
 
     m_TName->setGeometry(10,72,80,20);
     m_TSize->setGeometry(10,92,80,20);
@@ -150,12 +150,12 @@ int DL_Image::getFileBitDepth(QString filename,QFileInfo *Finfo)
     QFile file(filename);
 
     // 0 打开文件获取文件长度
-    if(file.open(QIODevice::ReadWrite))
+    if(file.open(QIODevice::ReadOnly))
     {
         int flen = file.size();
 
         // 1 分配缓冲空间
-        char *pdata = new char [flen + 56];
+        char *pdata = new char [flen + 54];
         if ( NULL == pdata )
         {
             QMessageBox::information(NULL, NULL, "malloc buffer failed...");
@@ -166,7 +166,7 @@ int DL_Image::getFileBitDepth(QString filename,QFileInfo *Finfo)
 
         // 2 把数据读到缓冲
         QDataStream mystream(&file);
-        if ( -1 == mystream.readRawData(pdata + 54, flen))
+        if ( -1 == mystream.readRawData(&pdata[54], flen))
         {
             QMessageBox::information(NULL, NULL, "readRawData failed...");
             if( NULL != pdata )// 释放缓冲空间
@@ -177,7 +177,7 @@ int DL_Image::getFileBitDepth(QString filename,QFileInfo *Finfo)
             return 0;
         }
         m_Header.bfType = 0x4D42;
-        m_Header.bfSize = flen + 54 + 2;
+        m_Header.bfSize = flen + 54;
         m_Header.bfOffBits = 54;
 
         m_HeaderInfo.biWidth = 1280;
@@ -186,7 +186,7 @@ int DL_Image::getFileBitDepth(QString filename,QFileInfo *Finfo)
         m_HeaderInfo.biPlanes = 1;
         m_HeaderInfo.biBitCount = 32;
         m_HeaderInfo.biCompression = 0;
-        m_HeaderInfo.biSizeImage = flen + 2;
+        m_HeaderInfo.biSizeImage = flen;
         m_HeaderInfo.biXPelsPerMeter = 3780;
         m_HeaderInfo.biYPelsPerMeter = 3780;
 
@@ -200,7 +200,7 @@ int DL_Image::getFileBitDepth(QString filename,QFileInfo *Finfo)
         {
             //read or write the file "filename"
             QDataStream newFile(&fd);
-            newFile.writeRawData(pdata,flen + 56);
+            newFile.writeRawData(pdata,flen + 54);
 
         }
 
