@@ -1,12 +1,16 @@
 #include <QFileDialog>
 #include <QMessageBox>
+
 #include "DL_ImageBinary.h"
+#include "DL_ImageGenerateBMP.h"
+
+static QString curFilename;
+
 
 DL_ImageBinary::DL_ImageBinary(QWidget *parent)
     : QWidget(parent)
 	, m_curfilepath(new QPushButton(this))
 	, m_preview(new QLabel(this))
-    , m_curFileInfo(NULL)
     , m_FName(new QLabel(this))
     , m_FSize(new QLabel(this))
     , m_DName(new QLabel(this))
@@ -51,31 +55,29 @@ void DL_ImageBinary::resizeEvent(QResizeEvent *)
 
 void DL_ImageBinary::loadFile()
 {
-    QString curFile;
-        curFile=QFileDialog::getOpenFileName(this,
+    QString m_curFile;
+        m_curFile=QFileDialog::getOpenFileName(this,
                                               tr("选择图像"),
                                               "",
                                               tr("Images library(*.bin *.*)"));
-    if(curFile.isEmpty())
+    if(m_curFile.isEmpty())
     {
          return;
     }
     else
     {
-        m_curFileInfo = new QFileInfo(curFile);
-        m_DName->setText(m_curFileInfo->fileName());
+        curFilename = m_curFile;
+        QFileInfo curFileInfo(m_curFile);
+        m_DName->setText(curFileInfo.fileName());
 
-        showFile(curFile);
-    }
-    if(NULL != m_curFileInfo) {
-        delete m_curFileInfo;
-        m_curFileInfo = NULL;
+        showFile(m_curFile);
     }
 }
 
 void DL_ImageBinary::generateBMP()
 {
-
+    ImageGenerateBMP bmpFile;
+    bmpFile.generateBMP(curFilename);
 }
 
 void DL_ImageBinary::showFile(QString filename)
@@ -105,6 +107,10 @@ void DL_ImageBinary::showFile(QString filename)
         QImage img((uchar*)p_data,1280,720,QImage::Format_ARGB32);
         m_preview->setPixmap(QPixmap::fromImage(img));
         m_DSize->setText(QString::number(flen) + " 字节");
+        File.close();
+    }
+    else {
+        QMessageBox::information(NULL, NULL, "文件打开失败");
     }
 }
 

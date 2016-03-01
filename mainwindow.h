@@ -6,8 +6,8 @@
 #include <QLabel>
 #include <QTabWidget>
 
-class DL_Image;
-class DL_Imagelibrary;
+class DL_ImageDetail;
+class DL_ImageBinary;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -23,8 +23,8 @@ protected:
     void resizeEvent(QResizeEvent *);
 private:
     QTabWidget  *m_Main;
-    DL_Image    *m_Image;
-    DL_Imagelibrary *m_ImageLibrary;
+    DL_ImageDetail    *m_Image;
+    DL_ImageBinary *m_ImageLibrary;
 };
 
 #endif // MAINWINDOW_H

@@ -32,9 +32,7 @@ protected:
 
 private:
     void init();
-    void showImageDetail();
-    void updateImageFormat();
-    int getFileBitDepth(QString filename,QFileInfo *Finfo);
+    void showImageDetail(QString filename);
 
 private:
     /*Function*/
@@ -47,13 +45,11 @@ private:
     /*Image Information Title*/
     QLabel      *m_TName;
     QLabel      *m_TSize;
-    QLabel      *m_TFormat;
     QLabel      *m_TDepth;
 
     /*Image Information Detail*/
     QLabel      *m_DName;
     QLabel      *m_DSize;
-    QLabel      *m_DFormat;
     QLabel      *m_DDepth;
 
     /*Image*/

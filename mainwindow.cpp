@@ -1,20 +1,25 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <QMessageBox>
-
+#include <QApplication>
+#include <QDesktopWidget>
 #include "mainwindow.h"
-#include "DL_image.h"
-#include "dl_imagelibrary.h"
+#include "DL_ImageDetail.h"
+#include "DL_ImageBinary.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , m_Main(new QTabWidget(this))
-    , m_Image(new DL_Image(this))
-    , m_ImageLibrary(new DL_Imagelibrary(this))
+    , m_Image(new DL_ImageDetail(this))
+    , m_ImageLibrary(new DL_ImageBinary(this))
 {
-    m_Main->addTab(m_Image,"图片详细信息");
     m_Main->addTab(m_ImageLibrary,"加载图片数据文件");
-    resize(maximumWidth(),maximumHeight());
+    m_Main->addTab(m_Image,"图片详细信息");
+
+    QDesktopWidget* desktopWidget = QApplication::desktop();
+    QRect deskRect = desktopWidget->availableGeometry();
+
+    resize(deskRect.width() - 20,deskRect.height() - 40);
 
 }
 

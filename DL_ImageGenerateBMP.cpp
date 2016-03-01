@@ -1,6 +1,11 @@
+#include<QFile>
+#include<QFileInfo>
+#include<QMessageBox>
+
+
 #include"DL_ImageGenerateBMP.h"
 
-ImageGenerateBMP::ImageGenerateBMP(QWidget *parent = 0)
+ImageGenerateBMP::ImageGenerateBMP(QWidget *parent)
     :QWidget(parent)
 {
     init();
@@ -11,41 +16,40 @@ ImageGenerateBMP::~ImageGenerateBMP()
 
 }
 
-ImageGenerateBMP::init()
+void ImageGenerateBMP::init()
 {
     memset(&m_Header,0,sizeof(BITMAPFILEHEADER));
     memset(&m_HeaderInfo,0,sizeof(BITMAPINFOHEADER));
     memset(&m_ImageRGB,0,sizeof(RGBQUAD));
 }
 
-ImageGenerateBMP::generateBMP(QString filename)
+void ImageGenerateBMP::generateBMP(QString filename)
 {
 	QFile file(filename);
-	if(file.open(QIODevice::ReadOnly))
+    QFileInfo Finfo(filename);
+    if(file.open(QIODevice::ReadOnly))
     {
         int flen = file.size();
 
-        // 1 ���仺��ռ�
+        // 1 分配缓冲空间
         char *pdata = new char [flen + 54];
         if ( NULL == pdata )
         {
             QMessageBox::information(NULL, NULL, "malloc buffer failed...");
-            return 0;
         }
         memset(pdata, 0, flen);
 
 
-        // 2 �����ݶ�������
+        // 2 把数据读到缓冲
         QDataStream mystream(&file);
         if ( -1 == mystream.readRawData(&pdata[54], flen))
         {
             QMessageBox::information(NULL, NULL, "readRawData failed...");
-            if( NULL != pdata )// �ͷŻ���ռ�
+            if( NULL != pdata )// 释放缓冲空间
             {
                 delete[] pdata;
                 pdata = NULL;
             }
-            return 0;
         }
         m_Header.bfType = 0x4D42;
         m_Header.bfSize = flen + 54;
@@ -63,7 +67,7 @@ ImageGenerateBMP::generateBMP(QString filename)
     
         memcpy(pdata,&m_Header,sizeof(BITMAPFILEHEADER));
         memcpy(&pdata[14],&m_HeaderInfo,sizeof(BITMAPINFOHEADER));
-        QFile fd(Finfo->filePath() + ".bmp");
+        QFile fd(Finfo.filePath() + "Generate.bmp");
         fd.open(QIODevice::WriteOnly);
         fd.close();
         fd.open(QIODevice::ReadWrite);
@@ -71,16 +75,103 @@ ImageGenerateBMP::generateBMP(QString filename)
         {
             //read or write the file "filename"
             QDataStream newFile(&fd);
+            imgDataExchange(&pdata[54]);
             newFile.writeRawData(pdata,flen + 54);
+            QMessageBox::information(NULL, NULL, "文件生成成功!");
 
         }
 
-        if( NULL != pdata )// �ͷŻ���ռ�
+        if( NULL != pdata )// 释放缓冲空间
         {
             delete[] pdata;
             pdata = NULL;
         }
-
-
-	
+    }
+    else {
+        QMessageBox::information(NULL, NULL, "文件打开失败!");
+    }
 }
+
+BITMAPFILEHEADER ImageGenerateBMP::getBMPHeader(QString filename)
+{
+    QFile file(filename);
+    BITMAPFILEHEADER header;
+
+    memset(&header,0,sizeof(BITMAPFILEHEADER));
+
+    if(file.open(QIODevice::ReadOnly)) {
+        int flen = file.size();
+
+        // 1 分配缓冲空间
+        char *pdata = new char [flen];
+        if ( NULL == pdata )
+        {
+            QMessageBox::information(NULL, NULL, "malloc buffer failed...");
+        }
+        memset(pdata, 0, flen);
+        QDataStream filestream(&file);
+        if ( -1 == filestream.readRawData(pdata, flen))
+        {
+            QMessageBox::information(NULL, NULL, "readRawData failed...");
+            if( NULL != pdata )// 释放缓冲空间
+            {
+                delete[] pdata;
+                pdata = NULL;
+            }
+        }
+        memcpy(&header,pdata,sizeof(BITMAPFILEHEADER));
+    }
+    else {
+        QMessageBox::information(NULL, NULL, "文件打开失败!");
+    }
+    return header;
+}
+
+BITMAPINFOHEADER ImageGenerateBMP::getBMPHeaderInfo(QString filename)
+{
+    QFile file(filename);
+    BITMAPINFOHEADER headerInfo;
+
+    memset(&headerInfo,0,sizeof(BITMAPINFOHEADER));
+
+    if(file.open(QIODevice::ReadOnly)) {
+        int flen = file.size();
+
+        // 1 分配缓冲空间
+        char *pdata = new char [flen];
+        if ( NULL == pdata )
+        {
+            QMessageBox::information(NULL, NULL, "malloc buffer failed...");
+        }
+        memset(pdata, 0, flen);
+        QDataStream filestream(&file);
+        if ( -1 == filestream.readRawData(pdata, flen))
+        {
+            QMessageBox::information(NULL, NULL, "readRawData failed...");
+            if( NULL != pdata )// 释放缓冲空间
+            {
+                delete[] pdata;
+                pdata = NULL;
+            }
+        }
+        memcpy(&headerInfo,&pdata[14],sizeof(BITMAPINFOHEADER));
+
+    }
+    else {
+        QMessageBox::information(NULL, NULL, "文件打开失败!");
+    }
+    return headerInfo;
+}
+void ImageGenerateBMP::imgDataExchange(char* data)
+{
+    char tmp[1280*4];
+    int j = 0;
+    for (int i=720-1; i>720/2; i--) {
+        memcpy(tmp,&data[j],1280*4);
+        memcpy(&data[j],&data[i*1280*4],1280*4);
+        memcpy(&data[i*1280*4],tmp,1280*4);
+        j +=1280*4;
+    }
+}
+
+

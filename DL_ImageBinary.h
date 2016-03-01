@@ -31,7 +31,7 @@ private:
     QPushButton *m_curfilepath;
     QLabel      *m_preview;
 
-    QFileInfo   *m_curFileInfo;
+    QString     m_curFile;
 
     QLabel      *m_FName;
     QLabel      *m_FSize;
@@ -40,6 +40,7 @@ private:
     QLabel      *m_DSize;
 
     QPushButton *m_GenerateBMP;
+
 
 };
 
