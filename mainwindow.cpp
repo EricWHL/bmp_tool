@@ -6,15 +6,18 @@
 #include "mainwindow.h"
 #include "DL_ImageDetail.h"
 #include "DL_ImageBinary.h"
+#include "DL_Tool.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , m_Main(new QTabWidget(this))
     , m_Image(new DL_ImageDetail(this))
     , m_ImageLibrary(new DL_ImageBinary(this))
+    , m_Tool(new DL_Tool(this))
 {
     m_Main->addTab(m_ImageLibrary,"加载图片数据文件");
     m_Main->addTab(m_Image,"图片详细信息");
+    m_Main->addTab(m_Tool,"工具");
 
     QDesktopWidget* desktopWidget = QApplication::desktop();
     QRect deskRect = desktopWidget->availableGeometry();
