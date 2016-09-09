@@ -21,6 +21,7 @@ protected:
 public slots:
     void loadFile();
     void generateBMP();
+    void test();
 
 private:
 	void init();
@@ -40,6 +41,7 @@ private:
     QLabel      *m_DSize;
 
     QPushButton *m_GenerateBMP;
+    QPushButton *m_testButton;
 
 
 };

@@ -55,8 +55,8 @@ void ImageGenerateBMP::generateBMP(QString filename)
         m_Header.bfSize = flen + 54;
         m_Header.bfOffBits = 54;
 
-        m_HeaderInfo.biWidth = 1280;
-        m_HeaderInfo.biHeight = 720;
+        m_HeaderInfo.biWidth = 800;
+        m_HeaderInfo.biHeight = 480;
         m_HeaderInfo.biSize = 40;
         m_HeaderInfo.biPlanes = 1;
         m_HeaderInfo.biBitCount = 32;
@@ -164,14 +164,11 @@ BITMAPINFOHEADER ImageGenerateBMP::getBMPHeaderInfo(QString filename)
 }
 void ImageGenerateBMP::imgDataExchange(char* data)
 {
-    char tmp[1280*4];
-    int j = 0;
-    for (int i=720-1; i>720/2; i--) {
-        memcpy(tmp,&data[j],1280*4);
-        memcpy(&data[j],&data[i*1280*4],1280*4);
-        memcpy(&data[i*1280*4],tmp,1280*4);
-        j +=1280*4;
+    char tmp[800*4*480];
+    for (int i=480-1,j = 0; i>=0; i--,j ++) {
+        memcpy(&tmp[j*800*4],&data[i*800*4],800*4);
     }
+    memcpy(data,tmp,800*4*480);
 }
 
 

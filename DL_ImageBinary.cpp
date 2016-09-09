@@ -1,4 +1,5 @@
 #include <QFileDialog>
+#include <QFile>
 #include <QMessageBox>
 
 #include "DL_ImageBinary.h"
@@ -16,10 +17,12 @@ DL_ImageBinary::DL_ImageBinary(QWidget *parent)
     , m_DName(new QLabel(this))
     , m_DSize(new QLabel(this))
     , m_GenerateBMP(new QPushButton(this))
+    , m_testButton(new QPushButton(this))
 {
     init();
     connect(m_curfilepath,SIGNAL(clicked(bool)),this,SLOT(loadFile()));
     connect(m_GenerateBMP,SIGNAL(clicked(bool)),this,SLOT(generateBMP()));
+    connect(m_testButton,SIGNAL(clicked(bool)),this,SLOT(test()));
 }
 
 DL_ImageBinary::~DL_ImageBinary()
@@ -35,6 +38,7 @@ void DL_ImageBinary::init()
     m_FName->setText("文件名:");
     m_FSize->setText("文件大小:");
     m_GenerateBMP->setText("生成BMP图片");
+    m_testButton->setText("test");
 
 }
 
@@ -50,6 +54,7 @@ void DL_ImageBinary::resizeEvent(QResizeEvent *)
     m_DSize->setGeometry(165,90,150,25);
 
     m_GenerateBMP->setGeometry(10,500,150,25);
+    m_testButton->setGeometry(10,530,150,25);
 
 }
 
@@ -104,7 +109,7 @@ void DL_ImageBinary::showFile(QString filename)
             }
 
         }
-        QImage img((uchar*)p_data,1280,720,QImage::Format_ARGB32);
+        QImage img((uchar*)p_data,800,480,QImage::Format_ARGB32);
         m_preview->setPixmap(QPixmap::fromImage(img));
         m_DSize->setText(QString::number(flen) + " 字节");
         File.close();
@@ -112,6 +117,17 @@ void DL_ImageBinary::showFile(QString filename)
     else {
         QMessageBox::information(NULL, NULL, "文件打开失败");
     }
+}
+
+void DL_ImageBinary::test()
+{
+    QFile header("d://AppHandler.h");
+    header.open(QIODevice::WriteOnly| QIODevice::Text);
+    header.write("aaaaaaaaaaaaaaaaaaaaa\n");
+    header.write("bbbbbbbbbbbbbbbbbbbbb\n");
+    header.close();
+
+
 }
 
 
