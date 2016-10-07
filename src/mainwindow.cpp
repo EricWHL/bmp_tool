@@ -3,10 +3,10 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QDesktopWidget>
-#include "mainwindow.h"
-#include "DL_ImageDetail.h"
-#include "DL_ImageBinary.h"
-#include "DL_Tool.h"
+#include "inc/mainwindow.h"
+#include "inc/EC_ImageDetail.h"
+#include "inc/EC_ImageBinary.h"
+#include "inc/EC_Tool.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_Image(new DL_ImageDetail(this))
     , m_ImageLibrary(new DL_ImageBinary(this))
     , m_Tool(new DL_Tool(this))
+    ,m_convLib (new EC_iConvLibIF)
 {
     m_Main->addTab(m_ImageLibrary,"加载图片数据文件");
     m_Main->addTab(m_Image,"图片详细信息");

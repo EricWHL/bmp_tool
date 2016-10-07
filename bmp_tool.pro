@@ -1,15 +1,18 @@
 QT       += core gui widgets
+
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp \
-    DL_ImageDetail.cpp \
-    DL_ImageBinary.cpp \
-    DL_ImageGenerateBMP.cpp \
-    DL_Tool.cpp
+    src/EC_iConvLibIF.cpp \
+    src/EC_ImageBinary.cpp \
+    src/EC_ImageDetail.cpp \
+    src/EC_ImageGenerateBMP.cpp \
+    src/EC_Tool.cpp \
+    src/main.cpp \
+    src/mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h \
-    DL_ImageBinary.h \
-    DL_ImageDetail.h \
-    DL_ImageGenerateBMP.h \
-    DL_Tool.h
+    inc/EC_iConvLibIF.h \
+    inc/EC_ImageBinary.h \
+    inc/EC_ImageDetail.h \
+    inc/EC_ImageGenerateBMP.h \
+    inc/EC_Tool.h \
+    inc/mainwindow.h

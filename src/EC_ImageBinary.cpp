@@ -2,8 +2,8 @@
 #include <QFile>
 #include <QMessageBox>
 
-#include "DL_ImageBinary.h"
-#include "DL_ImageGenerateBMP.h"
+#include "inc/EC_ImageBinary.h"
+#include "inc/EC_ImageGenerateBMP.h"
 
 static QString curFilename;
 
