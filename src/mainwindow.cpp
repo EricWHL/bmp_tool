@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_Main(new QTabWidget(this))
     , m_Image(new DL_ImageDetail(this))
     , m_ImageLibrary(new DL_ImageBinary(this))
-    , m_Tool(new DL_Tool(this))
+    , m_Tool(new EC_Tool(this))
     ,m_convLib (new EC_iConvLibIF)
 {
     m_Main->addTab(m_ImageLibrary,"加载图片数据文件");

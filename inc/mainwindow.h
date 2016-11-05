@@ -9,7 +9,7 @@
 
 class DL_ImageDetail;
 class DL_ImageBinary;
-class DL_Tool;
+class EC_Tool;
 
 
 class MainWindow : public QMainWindow
@@ -29,7 +29,7 @@ private:
     QTabWidget*         m_Main;
     DL_ImageDetail*  m_Image;
     DL_ImageBinary* m_ImageLibrary;
-    DL_Tool*                  m_Tool;
+    EC_Tool*                  m_Tool;
     EC_iConvLibIF*      m_convLib;
 };
 

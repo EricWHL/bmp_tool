@@ -4,20 +4,32 @@
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
+#include <QGroupBox>
 #include <QLineEdit>
+#include <QLabel>
+#include <QComboBox>
 
-class DL_Tool : public QWidget
+class PrivateUsbTools;
+
+class EC_Tool : public QWidget
 {
     Q_OBJECT
 public:
-    explicit DL_Tool(QWidget *parent = 0);
+    explicit EC_Tool(QWidget *parent = 0);
+
 
 signals:
 
 public slots:
 private:
-    QPushButton* m_FilePath;
-    QLabel* m_discribtion;
+    void init();
+    void usbToolsInit();
+
+    QGroupBox* m_UsbTlGp;
+    QComboBox* m_UsbRdLst;
+    QPushButton* m_UsbGrtBtn;
+    QLabel* m_UsbRdPt;
+    QLabel* m_UsbFlPt;
 };
 
 #endif // DL_TOOL_H
