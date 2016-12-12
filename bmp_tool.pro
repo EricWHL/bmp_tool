@@ -7,7 +7,8 @@ SOURCES += \
     src/EC_ImageGenerateBMP.cpp \
     src/EC_Tool.cpp \
     src/main.cpp \
-    src/mainwindow.cpp
+    src/mainwindow.cpp \
+    src/EC_Zipc.cpp
 
 HEADERS += \
     inc/EC_iConvLibIF.h \
@@ -15,4 +16,5 @@ HEADERS += \
     inc/EC_ImageDetail.h \
     inc/EC_ImageGenerateBMP.h \
     inc/EC_Tool.h \
-    inc/mainwindow.h
+    inc/mainwindow.h \
+    inc/EC_Zipc.h

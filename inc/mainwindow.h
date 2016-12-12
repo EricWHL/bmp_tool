@@ -10,6 +10,7 @@
 class DL_ImageDetail;
 class DL_ImageBinary;
 class EC_Tool;
+class EC_Zipc;
 
 
 class MainWindow : public QMainWindow
@@ -31,6 +32,7 @@ private:
     DL_ImageBinary* m_ImageLibrary;
     EC_Tool*                  m_Tool;
     EC_iConvLibIF*      m_convLib;
+    EC_Zipc*         m_Zipc;
 };
 
 #endif // MAINWINDOW_H
