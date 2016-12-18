@@ -4,8 +4,12 @@
 EC_Zipc::EC_Zipc(QWidget *parent)
     : QWidget(parent)
     , m_mainView (new QTableView(this))
+	, m_Menu (new QMenu(this))
+    , m_AddAct (new QAction("添加动作",this))
+    , m_AddSts (new QAction("添加状态",this))
 {
     init();
+    connect(m_mainView,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(menu(QPoint)));
 }
 
 void EC_Zipc::init()
@@ -22,5 +26,13 @@ void EC_Zipc::init()
     student_model->setItem(0, 3, new QStandardItem("18"));
     student_model->setItem(0, 4, new QStandardItem("土木学院"));
     m_mainView->setModel(student_model);
+    m_mainView->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_Menu->addAction(m_AddAct);
+    m_Menu->addAction(m_AddSts);
     m_mainView->setGeometry(200,200,600,400);
+}
+
+void EC_Zipc::menu(QPoint)
+{
+    m_Menu->exec(QCursor::pos());
 }
