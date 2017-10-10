@@ -37,7 +37,7 @@ void ImageGenerateBMP::generateBMP(QString filename)
         {
             QMessageBox::information(NULL, NULL, "malloc buffer failed...");
         }
-        memset(pdata, 0, flen);
+        memset(pdata, 0, flen+ 54);
 
 
         // 2 把数据读到缓冲
@@ -55,8 +55,8 @@ void ImageGenerateBMP::generateBMP(QString filename)
         m_Header.bfSize = flen + 54;
         m_Header.bfOffBits = 54;
 
-        m_HeaderInfo.biWidth = 800;
-        m_HeaderInfo.biHeight = 480;
+        m_HeaderInfo.biWidth = 1024;
+        m_HeaderInfo.biHeight = 600;
         m_HeaderInfo.biSize = 40;
         m_HeaderInfo.biPlanes = 1;
         m_HeaderInfo.biBitCount = 32;

@@ -109,9 +109,10 @@ void DL_ImageBinary::showFile(QString filename)
             }
 
         }
-        QImage img((uchar*)p_data,800,480,QImage::Format_ARGB32);
+        QImage img((uchar*)p_data,1024,600,QImage::Format_ARGB32);
         m_preview->setPixmap(QPixmap::fromImage(img));
         m_DSize->setText(QString::number(flen) + " 字节");
+        img.save("a.bmp");
         File.close();
     }
     else {
