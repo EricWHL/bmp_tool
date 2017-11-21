@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QFileInfo>
+#include <QComboBox>
 
 class DL_ImageBinary : public QWidget
 {
@@ -36,9 +37,11 @@ private:
 
     QLabel      *m_FName;
     QLabel      *m_FSize;
+    QComboBox   *m_FRect;
 
     QLabel      *m_DName;
     QLabel      *m_DSize;
+
 
     QPushButton *m_GenerateBMP;
     QPushButton *m_testButton;

@@ -5,8 +5,15 @@
 #include "inc/EC_ImageBinary.h"
 #include "inc/EC_ImageGenerateBMP.h"
 
-static QString curFilename;
+typedef enum _DL_IMG_BNY_RECT {
+    DL_IMG_BNY_RECT_800_400 = 0,
+    DL_IMG_BNY_RECT_800_480,
+    DL_IMG_BNY_RECT_1024_600,
+    DL_IMG_BNY_RECT_1024_720,
+    DL_IMG_BNY_RECT_MAX,
+}DL_IMG_BNY_RECT;
 
+static QString curFilename;
 
 DL_ImageBinary::DL_ImageBinary(QWidget *parent)
     : QWidget(parent)
@@ -18,6 +25,7 @@ DL_ImageBinary::DL_ImageBinary(QWidget *parent)
     , m_DSize(new QLabel(this))
     , m_GenerateBMP(new QPushButton(this))
     , m_testButton(new QPushButton(this))
+    , m_FRect(new QComboBox(this))
 {
     init();
     connect(m_curfilepath,SIGNAL(clicked(bool)),this,SLOT(loadFile()));
@@ -39,6 +47,10 @@ void DL_ImageBinary::init()
     m_FSize->setText("文件大小:");
     m_GenerateBMP->setText("生成BMP图片");
     m_testButton->setText("test");
+    m_FRect->addItem("800*400");
+    m_FRect->addItem("800*480");
+    m_FRect->addItem("1024*600");
+    m_FRect->addItem("1024*720");
 
 }
 
@@ -49,9 +61,11 @@ void DL_ImageBinary::resizeEvent(QResizeEvent *)
 
     m_FName->setGeometry(10,60,120,25);
     m_FSize->setGeometry(10,90,120,25);
+    m_FRect->setGeometry(10,120,150,25);
 
     m_DName->setGeometry(165,60,150,25);
     m_DSize->setGeometry(165,90,150,25);
+
 
     m_GenerateBMP->setGeometry(10,500,150,25);
     m_testButton->setGeometry(10,530,150,25);
@@ -82,12 +96,38 @@ void DL_ImageBinary::loadFile()
 void DL_ImageBinary::generateBMP()
 {
     ImageGenerateBMP bmpFile;
-    bmpFile.generateBMP(curFilename);
+    int imageWidth = 0;
+    int imageHeight = 0;
+
+    switch (m_FRect->currentIndex()) {
+    case DL_IMG_BNY_RECT_800_400:
+        imageWidth = 800;
+        imageHeight = 400;
+        break;
+    case DL_IMG_BNY_RECT_800_480:
+        imageWidth = 800;
+        imageHeight = 480;
+        break;
+    case DL_IMG_BNY_RECT_1024_600:
+        imageWidth = 1024;
+        imageHeight = 600;
+        break;
+    case DL_IMG_BNY_RECT_1024_720:
+        imageWidth = 1024;
+        imageHeight = 720;
+        break;
+    default:
+        break;
+    }
+
+    bmpFile.generateBMP(curFilename,imageWidth,imageHeight);
 }
 
 void DL_ImageBinary::showFile(QString filename)
 {
     QFile File(filename);
+    int imageWidth = 0;
+    int imageHeight = 0;
 
     if(File.open(QIODevice::ReadOnly)) {
         int flen = File.size();
@@ -109,10 +149,30 @@ void DL_ImageBinary::showFile(QString filename)
             }
 
         }
-        QImage img((uchar*)p_data,1024,600,QImage::Format_ARGB32);
+        switch (m_FRect->currentIndex()) {
+        case DL_IMG_BNY_RECT_800_400:
+            imageWidth = 800;
+            imageHeight = 400;
+            break;
+        case DL_IMG_BNY_RECT_800_480:
+            imageWidth = 800;
+            imageHeight = 480;
+            break;
+        case DL_IMG_BNY_RECT_1024_600:
+            imageWidth = 1024;
+            imageHeight = 600;
+            break;
+        case DL_IMG_BNY_RECT_1024_720:
+            imageWidth = 1024;
+            imageHeight = 720;
+            break;
+        default:
+            break;
+        }
+        QImage img((uchar*)p_data,imageWidth,imageHeight,QImage::Format_ARGB32);
         m_preview->setPixmap(QPixmap::fromImage(img));
         m_DSize->setText(QString::number(flen) + " 字节");
-        img.save("a.bmp");
+        //img.save("a.bmp");
         File.close();
     }
     else {

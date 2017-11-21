@@ -18,6 +18,7 @@ DL_ImageDetail::DL_ImageDetail(QWidget *parent)
     , m_DSize(new QLabel(this))
     , m_DDepth(new QLabel(this))
     , m_LoadImage(new QImage)
+
 {
     init();
     connect(m_curfilepath,SIGNAL(clicked(bool)),this,SLOT(buttonshow()));

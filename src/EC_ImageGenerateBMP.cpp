@@ -23,7 +23,7 @@ void ImageGenerateBMP::init()
     memset(&m_ImageRGB,0,sizeof(RGBQUAD));
 }
 
-void ImageGenerateBMP::generateBMP(QString filename)
+void ImageGenerateBMP::generateBMP(QString filename,int width,int height)
 {
 	QFile file(filename);
     QFileInfo Finfo(filename);
@@ -55,8 +55,8 @@ void ImageGenerateBMP::generateBMP(QString filename)
         m_Header.bfSize = flen + 54;
         m_Header.bfOffBits = 54;
 
-        m_HeaderInfo.biWidth = 1024;
-        m_HeaderInfo.biHeight = 600;
+        m_HeaderInfo.biWidth = width;
+        m_HeaderInfo.biHeight = height;
         m_HeaderInfo.biSize = 40;
         m_HeaderInfo.biPlanes = 1;
         m_HeaderInfo.biBitCount = 32;
@@ -67,7 +67,7 @@ void ImageGenerateBMP::generateBMP(QString filename)
     
         memcpy(pdata,&m_Header,sizeof(BITMAPFILEHEADER));
         memcpy(&pdata[14],&m_HeaderInfo,sizeof(BITMAPINFOHEADER));
-        QFile fd(Finfo.filePath() + "Generate.bmp");
+        QFile fd(Finfo.filePath() + "Generate1111111.bmp");
         fd.open(QIODevice::WriteOnly);
         fd.close();
         fd.open(QIODevice::ReadWrite);
@@ -75,7 +75,7 @@ void ImageGenerateBMP::generateBMP(QString filename)
         {
             //read or write the file "filename"
             QDataStream newFile(&fd);
-            imgDataExchange(&pdata[54]);
+            imgDataExchange(&pdata[54],width,height);
             newFile.writeRawData(pdata,flen + 54);
             QMessageBox::information(NULL, NULL, "文件生成成功!");
 
@@ -162,13 +162,15 @@ BITMAPINFOHEADER ImageGenerateBMP::getBMPHeaderInfo(QString filename)
     }
     return headerInfo;
 }
-void ImageGenerateBMP::imgDataExchange(char* data)
+void ImageGenerateBMP::imgDataExchange(char* data,int width,int height)
 {
-    char tmp[800*4*480];
-    for (int i=480-1,j = 0; i>=0; i--,j ++) {
-        memcpy(&tmp[j*800*4],&data[i*800*4],800*4);
+    char *tmp = new char[width*height*4];
+
+    for (int i=height-1,j = 0; i>=0; i--,j ++) {
+        memcpy(&tmp[j*width*4],&data[i*width*4],width*4);
     }
-    memcpy(data,tmp,800*4*480);
+    memcpy(data,tmp,width*4*height);
+    delete [] tmp;
 }
 
 

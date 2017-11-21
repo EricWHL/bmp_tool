@@ -53,7 +53,7 @@ public:
     ~ImageGenerateBMP();
 
 public:
-    void generateBMP(QString filename);
+    void generateBMP(QString filename,int width,int height);
     BITMAPFILEHEADER getBMPHeader(QString filename);
     BITMAPINFOHEADER getBMPHeaderInfo(QString filename);
 signals:
@@ -64,7 +64,7 @@ public slots:
 
 private:
     void init();
-    void imgDataExchange(char* data);
+    void imgDataExchange(char* data,int width,int height);
  
 private:
     /*BMP Information*/

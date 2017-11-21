@@ -7,7 +7,6 @@
 #include <QFileInfo>
 
 
-
 class DL_ImageDetail : public QWidget
 {
     Q_OBJECT
@@ -39,6 +38,7 @@ private:
     QPushButton *m_curfilepath;
     QLabel      *m_preview;
     QFileInfo   *m_curFileInfo;
+
 
 
 
