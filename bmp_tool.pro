@@ -8,7 +8,8 @@ SOURCES += \
     src/EC_Tool.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
-    src/EC_Zipc.cpp
+    src/EC_Zipc.cpp \
+    src/EC_CodeGenerationTools.cpp
 
 HEADERS += \
     inc/EC_iConvLibIF.h \
@@ -17,4 +18,5 @@ HEADERS += \
     inc/EC_ImageGenerateBMP.h \
     inc/EC_Tool.h \
     inc/mainwindow.h \
-    inc/EC_Zipc.h
+    inc/EC_Zipc.h \
+    inc/EC_CodeGenerationTools.h

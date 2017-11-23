@@ -11,6 +11,7 @@ class DL_ImageDetail;
 class DL_ImageBinary;
 class EC_Tool;
 class EC_Zipc;
+class EC_CodeGenerationTools;
 
 
 class MainWindow : public QMainWindow
@@ -27,12 +28,13 @@ public slots:
 protected:
     void resizeEvent(QResizeEvent *);
 private:
-    QTabWidget*         m_Main;
-    DL_ImageDetail*  m_Image;
-    DL_ImageBinary* m_ImageLibrary;
-    EC_Tool*                  m_Tool;
-    EC_iConvLibIF*      m_convLib;
-    EC_Zipc*         m_Zipc;
+    QTabWidget*                m_Main;
+    DL_ImageDetail*            m_Image;
+    DL_ImageBinary*            m_ImageLibrary;
+    EC_Tool*                   m_Tool;
+    EC_iConvLibIF*             m_convLib;
+    EC_Zipc*                   m_Zipc;
+    EC_CodeGenerationTools*    m_CodeGenTool;
 };
 
 #endif // MAINWINDOW_H

@@ -14,15 +14,12 @@ public:
     explicit DL_ImageBinary(QWidget *parent = 0);
     ~DL_ImageBinary();
 
-signals:
-
 protected:
 	void resizeEvent(QResizeEvent *);
 	
 public slots:
     void loadFile();
     void generateBMP();
-    void test();
 
 private:
 	void init();
@@ -42,9 +39,7 @@ private:
     QLabel      *m_DName;
     QLabel      *m_DSize;
 
-
     QPushButton *m_GenerateBMP;
-    QPushButton *m_testButton;
 
 
 };

@@ -8,6 +8,7 @@
 #include "inc/EC_ImageBinary.h"
 #include "inc/EC_Tool.h"
 #include "inc/EC_Zipc.h"
+#include "inc/EC_CodeGenerationTools.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,16 +18,18 @@ MainWindow::MainWindow(QWidget *parent)
     , m_Tool(new EC_Tool(this))
     , m_convLib (new EC_iConvLibIF)
     , m_Zipc (new EC_Zipc)
+    , m_CodeGenTool(new EC_CodeGenerationTools)
 {
     m_Main->addTab(m_ImageLibrary,"加载图片数据文件");
     m_Main->addTab(m_Image,"图片详细信息");
     m_Main->addTab(m_Tool,"工具");
     m_Main->addTab(m_Zipc,"Zipc");
+    m_Main->addTab(m_CodeGenTool,"代码生成工具");
 
     QDesktopWidget* desktopWidget = QApplication::desktop();
-    QRect deskRect = desktopWidget->availableGeometry();
+    QRect deskRect = desktopWidget->screenGeometry();
 
-    resize(deskRect.width() - 20,deskRect.height() - 40);
+    resize(deskRect.width(),deskRect.height());
 
 }
 
@@ -37,5 +40,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::resizeEvent(QResizeEvent *)
 {
-    m_Main->setGeometry(2,30,width()-4,height()-30-4);
+    QDesktopWidget* desktopWidget = QApplication::desktop();
+    QRect deskRect = desktopWidget->screenGeometry();
+    m_Main->setGeometry(deskRect);
 }

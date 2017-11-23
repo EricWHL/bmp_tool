@@ -24,13 +24,11 @@ DL_ImageBinary::DL_ImageBinary(QWidget *parent)
     , m_DName(new QLabel(this))
     , m_DSize(new QLabel(this))
     , m_GenerateBMP(new QPushButton(this))
-    , m_testButton(new QPushButton(this))
     , m_FRect(new QComboBox(this))
 {
     init();
     connect(m_curfilepath,SIGNAL(clicked(bool)),this,SLOT(loadFile()));
     connect(m_GenerateBMP,SIGNAL(clicked(bool)),this,SLOT(generateBMP()));
-    connect(m_testButton,SIGNAL(clicked(bool)),this,SLOT(test()));
 }
 
 DL_ImageBinary::~DL_ImageBinary()
@@ -46,7 +44,6 @@ void DL_ImageBinary::init()
     m_FName->setText("文件名:");
     m_FSize->setText("文件大小:");
     m_GenerateBMP->setText("生成BMP图片");
-    m_testButton->setText("test");
     m_FRect->addItem("800*400");
     m_FRect->addItem("800*480");
     m_FRect->addItem("1024*600");
@@ -68,7 +65,6 @@ void DL_ImageBinary::resizeEvent(QResizeEvent *)
 
 
     m_GenerateBMP->setGeometry(10,500,150,25);
-    m_testButton->setGeometry(10,530,150,25);
 
 }
 
@@ -172,7 +168,6 @@ void DL_ImageBinary::showFile(QString filename)
         QImage img((uchar*)p_data,imageWidth,imageHeight,QImage::Format_ARGB32);
         m_preview->setPixmap(QPixmap::fromImage(img));
         m_DSize->setText(QString::number(flen) + " 字节");
-        //img.save("a.bmp");
         File.close();
     }
     else {
@@ -180,15 +175,5 @@ void DL_ImageBinary::showFile(QString filename)
     }
 }
 
-void DL_ImageBinary::test()
-{
-    QFile header("d://AppHandler.h");
-    header.open(QIODevice::WriteOnly| QIODevice::Text);
-    header.write("aaaaaaaaaaaaaaaaaaaaa\n");
-    header.write("bbbbbbbbbbbbbbbbbbbbb\n");
-    header.close();
-
-
-}
 
 
