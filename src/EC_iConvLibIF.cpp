@@ -1,4 +1,4 @@
-#include "inc/EC_iConvLibIF.h"
+#include "EC_iConvLibIF.h"
 #include <QLibrary>
 #include <QString>
 #include <QMessageBox>

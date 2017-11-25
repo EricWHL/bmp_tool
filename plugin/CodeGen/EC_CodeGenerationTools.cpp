@@ -3,7 +3,7 @@
 #include <QDebug>
 
 
-#include "inc\EC_CodeGenerationTools.h"
+#include "EC_CodeGenerationTools.h"
 
 
 EC_CodeGenerationTools::EC_CodeGenerationTools(QWidget *parent)
@@ -16,6 +16,8 @@ EC_CodeGenerationTools::EC_CodeGenerationTools(QWidget *parent)
 
     connect(m_CopyRight,SIGNAL(clicked(bool)),this,SLOT(copyRightRecord()));
     connect(m_SaveCopyRight,SIGNAL(clicked(bool)),this,SLOT(copyRightSave()));
+
+    connect(m_MakeGenCompPro,SIGNAL(clicked(bool)),this,SLOT(makeGenComPro()));
 }
 
 void EC_CodeGenerationTools::init()
@@ -68,4 +70,9 @@ void EC_CodeGenerationTools::copyRightSave()
     delete m_CopyRightDetail;
 
     m_SaveCopyRight->setVisible(false);
+}
+
+void EC_CodeGenerationTools::makeGenComPro()
+{
+
 }

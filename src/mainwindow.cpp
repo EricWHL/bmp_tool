@@ -3,12 +3,12 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QDesktopWidget>
-#include "inc/mainwindow.h"
-#include "inc/EC_ImageDetail.h"
-#include "inc/EC_ImageBinary.h"
-#include "inc/EC_Tool.h"
-#include "inc/EC_Zipc.h"
-#include "inc/EC_CodeGenerationTools.h"
+#include "mainwindow.h"
+#include "EC_ImageDetail.h"
+#include "EC_ImageBinary.h"
+#include "EC_Tool.h"
+#include "EC_Zipc.h"
+#include "EC_CodeGenerationTools.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

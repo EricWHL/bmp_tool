@@ -2,8 +2,8 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
-#include "inc/EC_ImageDetail.h"
-#include "inc/EC_ImageGenerateBMP.h"
+#include "EC_ImageDetail.h"
+#include "EC_ImageGenerateBMP.h"
 
 
 DL_ImageDetail::DL_ImageDetail(QWidget *parent)

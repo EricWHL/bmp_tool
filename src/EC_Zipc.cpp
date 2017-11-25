@@ -1,4 +1,4 @@
-#include "inc/EC_Zipc.h"
+#include "EC_Zipc.h"
 #include <QStandardItemModel>
 
 EC_Zipc::EC_Zipc(QWidget *parent)

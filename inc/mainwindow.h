@@ -5,7 +5,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QTabWidget>
-#include "inc/EC_iConvLibIF.h"
+#include "EC_iConvLibIF.h"
 
 class DL_ImageDetail;
 class DL_ImageBinary;

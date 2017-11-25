@@ -20,6 +20,7 @@ public slots:
     void copyRightRecord();
     void copyRightRefresh();
     void copyRightSave();
+    void makeGenComPro();
 
 private:
     /* copyright config */

@@ -2,8 +2,8 @@
 #include <QFile>
 #include <QMessageBox>
 
-#include "inc/EC_ImageBinary.h"
-#include "inc/EC_ImageGenerateBMP.h"
+#include "EC_ImageBinary.h"
+#include "EC_ImageGenerateBMP.h"
 
 typedef enum _DL_IMG_BNY_RECT {
     DL_IMG_BNY_RECT_800_400 = 0,

@@ -3,7 +3,7 @@
 #include<QMessageBox>
 
 
-#include"inc/EC_ImageGenerateBMP.h"
+#include"EC_ImageGenerateBMP.h"
 
 ImageGenerateBMP::ImageGenerateBMP(QWidget *parent)
     :QWidget(parent)
