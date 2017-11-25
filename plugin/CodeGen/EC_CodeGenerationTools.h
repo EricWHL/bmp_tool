@@ -12,7 +12,7 @@ class EC_CodeGenerationTools : public QWidget
     Q_OBJECT
 public:
     explicit EC_CodeGenerationTools(QWidget *parent = 0);
-
+    ~EC_CodeGenerationTools();
 public:
     void init();
 

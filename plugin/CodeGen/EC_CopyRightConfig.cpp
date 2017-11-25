@@ -16,11 +16,13 @@ EC_CopyRightConfig::EC_CopyRightConfig(QWidget *parent)
 void EC_CopyRightConfig::init()
 {
     this->setWindowTitle("Copy Right Detail!");
+
     m_SaveCopyRight->setText("Save the CopyRight");
+    m_CopyRightDetail->setText("please refresh CopyRight!");
+
     m_SaveCopyRight->setEnabled(false);
     m_SaveCopyRight->setGeometry(0,2,this->geometry().width(),20);
 
-    m_CopyRightDetail->setText("please refresh CopyRight!");
     m_CopyRightDetail->setGeometry(0,24,this->geometry().width(),this->geometry().height()-24);
 }
 
@@ -28,11 +30,12 @@ void EC_CopyRightConfig::copyRightSave()
 {
     QDir dir;
     dir.mkdir("config");
-
     QFile file(dir.currentPath() + "/config/" +"cr.cfg");
+
     if(!file.open( QIODevice::ReadWrite | QIODevice::Truncate )) {
         qDebug()<<"[EC_CopyRightConfig][copyRightSave]Can't open the file!"<<endl;
     }
+
     file.write((char*)m_CopyRightDetail->toPlainText().toStdString().data(),m_CopyRightDetail->toPlainText().size());
     file.close();
 

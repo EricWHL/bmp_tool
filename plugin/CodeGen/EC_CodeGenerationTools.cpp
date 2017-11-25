@@ -13,14 +13,18 @@ EC_CodeGenerationTools::EC_CodeGenerationTools(QWidget *parent)
     connect(m_MakeGenCompPro,SIGNAL(clicked(bool)),this,SLOT(makeGenComPro()));
 }
 
+EC_CodeGenerationTools::~EC_CodeGenerationTools()
+{
+    delete m_CopyRight;
+    delete m_MakeGenCompPro;
+}
+
 void EC_CodeGenerationTools::init()
 {
     m_CopyRight->setText("Code CopyRight");
-
-    m_CopyRight->setGeometry(20,20,200,20);
-
     m_MakeGenCompPro->setText("Make Generate Code Project config");
 
+    m_CopyRight->setGeometry(20,20,200,20);
     m_MakeGenCompPro->setGeometry(20,430,300,20);
 }
 
