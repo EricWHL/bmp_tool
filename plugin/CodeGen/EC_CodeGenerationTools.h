@@ -5,6 +5,8 @@
 #include <QPushButton>
 #include <QTextEdit>
 
+class EC_CopyRightConfig;
+
 class EC_CodeGenerationTools : public QWidget
 {
     Q_OBJECT
@@ -18,16 +20,14 @@ signals:
 
 public slots:
     void copyRightRecord();
-    void copyRightRefresh();
-    void copyRightSave();
+
+
     void makeGenComPro();
 
 private:
     /* copyright config */
     QPushButton* m_CopyRight;
-    QPushButton* m_SaveCopyRight;
-
-    QTextEdit*  m_CopyRightDetail;
+    EC_CopyRightConfig* m_CpRtDtl;
     /* copyright config */
 
     /* generate complete config */

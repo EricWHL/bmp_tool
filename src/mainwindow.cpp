@@ -3,7 +3,9 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QDesktopWidget>
+
 #include "mainwindow.h"
+
 #include "EC_ImageDetail.h"
 #include "EC_ImageBinary.h"
 #include "EC_Tool.h"
