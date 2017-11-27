@@ -6,6 +6,7 @@
 #include <QTextEdit>
 
 class EC_CopyRightConfig;
+class EC_CodeTemplate;
 
 class EC_CodeGenerationTools : public QWidget
 {
@@ -31,7 +32,9 @@ private:
     /* copyright config */
 
     /* generate complete config */
+    QPushButton* m_LoadGenCompPro;
     QPushButton* m_MakeGenCompPro;
+    EC_CodeTemplate* m_CodeTemplate;
     /* generate complete config */
 };
 

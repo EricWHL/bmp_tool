@@ -24,25 +24,21 @@ MainWindow::MainWindow(QWidget *parent)
 {
     m_Main->addTab(m_ImageLibrary,"加载图片数据文件");
     m_Main->addTab(m_Image,"图片详细信息");
+    m_Main->addTab(m_CodeGenTool,"代码生成工具");
     m_Main->addTab(m_Tool,"工具");
     m_Main->addTab(m_Zipc,"Zipc");
-    m_Main->addTab(m_CodeGenTool,"代码生成工具");
 
-    QDesktopWidget* desktopWidget = QApplication::desktop();
-    QRect deskRect = desktopWidget->screenGeometry();
+    this->setWindowTitle("Tools Box");
 
-    resize(deskRect.width(),deskRect.height());
-
+    resize(QApplication::desktop()->availableGeometry().width(),QApplication::desktop()->availableGeometry().height());
 }
 
 MainWindow::~MainWindow()
 {
-
 }
 
 void MainWindow::resizeEvent(QResizeEvent *)
 {
-    QDesktopWidget* desktopWidget = QApplication::desktop();
-    QRect deskRect = desktopWidget->screenGeometry();
-    m_Main->setGeometry(deskRect);
+    this->setGeometry(QApplication::desktop()->availableGeometry().width()/4,QApplication::desktop()->availableGeometry().height()/4-10,QApplication::desktop()->availableGeometry().width()/2,QApplication::desktop()->availableGeometry().height()/2 + 200);
+    m_Main->setGeometry(0,0,this->geometry().width(),this->geometry().height());
 }
