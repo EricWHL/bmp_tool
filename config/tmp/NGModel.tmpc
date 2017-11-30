@@ -1,0 +1,78 @@
+/*Copyright (c) Suntec Electronic Corp. 2015 All rights reserved*/
+
+/**************************************************************************************************
+ * Program for display control microcomputer
+ * Function    : Function Header Of NG###Model
+ * Machine     : TAMDA
+ * Micon       : GerdaC
+ * Author      : 
+ * Date        : 
+ * Reference   :
+ *************************************************************************************************/
+#ifdef NGFW_PLATFORM_ITRON
+#endif
+
+#include "NG###Model.h"
+
+
+/******************************function*****************************/
+
+static void NG###Model_Ctor(NGObject* thiz, void* arg);
+static void NG###Model_Dtor(NGObject* thiz);
+static void NG###Model_OnEvent(NGHandle handle, NGModelEvent* event);
+
+static void NG###Model_ClassInit(void* clz)
+{
+    NGASSERT(clz);
+    NG###ModelClass* cls = (NG###ModelClass*)clz;
+
+    
+    /*model class functions*/
+    cls->onEvent = NG###Model_OnEvent;
+    
+}
+
+DefineObjectFull(NG###Model, NG###Model_Ctor, NG###Model_Dtor, NULL, NULL, NGTYPE(NGModel))
+
+static void NG###Model_Ctor(NGObject* thiz, void* arg)
+{
+    NGASSERT(thiz);
+
+    CallParentClassCtor(NG###Model, thiz, arg);
+    NG###Model* self = (NG###Model*)thiz;
+
+}
+
+static void NG###Model_Dtor(NGObject* thiz)
+{
+    NGUNUSED(thiz);
+}
+
+static void NG###Model_OnEvent(NGHandle handle, NGModelEvent* event)
+{
+#ifdef NGFW_PLATFORM_ITRON
+    NGASSERT(handle);
+    NGASSERT(event);
+    NG###Model* self = (NG###Model*)handle;
+    
+    switch(event->evId) {
+	case :
+		break;
+    default:
+        break;
+    }
+#else
+    NGUNUSED(handle);
+    NGUNUSED(event);
+#endif
+}
+
+NG###Model* NG###Model_Create()
+{
+    return (NG###Model*)NGObject_Create(NGTYPE(NG###Model), NULL);
+}
+
+void NG###Model_Destory(NG###Model* model)
+{
+	NGObject_Destroy((NGObject*)model);
+}

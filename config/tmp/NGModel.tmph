@@ -1,0 +1,40 @@
+/*Copyright (c) Suntec Electronic Corp. 2015 All rights reserved*/
+
+/**************************************************************************************************
+ * Program for display control microcomputer
+ * Function    : Function Header Of NG###Model
+ * Machine     : TAMDA
+ * Micon       : GerdaC
+ * Author      : 
+ * Date        : 
+ * Reference   :
+ *************************************************************************************************/
+#ifndef NG@@@MODEL_H
+#define NG@@@MODEL_H
+
+#include "NGModel.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+struct _NG###Model;
+    
+#define OBJECT_NG###Model \
+        OBJECT_NGModel \
+
+#define VTABLE_NG###Model \
+        VTABLE_NGModel \
+        
+
+DeclareObject(NG###Model)
+
+NG###Model* NG###Model_Create();
+void NG###Model_Destory(NG###Model* model);
+
+#ifdef __cplusplus
+}
+#endif
+
+
+#endif // NG@@@MODEL_H

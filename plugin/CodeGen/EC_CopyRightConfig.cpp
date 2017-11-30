@@ -29,7 +29,7 @@ void EC_CopyRightConfig::init()
 void EC_CopyRightConfig::copyRightSave()
 {
     QDir dir;
-    dir.mkdir("config");
+    dir.mkdir("config/cr");
     QFile file(dir.currentPath() + "/config/" +"cr.cfg");
 
     if(!file.open( QIODevice::ReadWrite | QIODevice::Truncate )) {

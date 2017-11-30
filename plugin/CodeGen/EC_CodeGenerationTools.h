@@ -7,6 +7,7 @@
 
 class EC_CopyRightConfig;
 class EC_CodeTemplate;
+class EC_CodeGenerationTemplates;
 
 class EC_CodeGenerationTools : public QWidget
 {
@@ -22,7 +23,7 @@ signals:
 public slots:
     void copyRightRecord();
 
-
+    void loadGenTmp();
     void makeGenComPro();
 
 private:
@@ -35,6 +36,7 @@ private:
     QPushButton* m_LoadGenCompPro;
     QPushButton* m_MakeGenCompPro;
     EC_CodeTemplate* m_CodeTemplate;
+    EC_CodeGenerationTemplates* m_CodeGenTem;
     /* generate complete config */
 };
 

@@ -15,7 +15,8 @@ SOURCES += \
     plugin/ImageGen/EC_ImageDetail.cpp \
     plugin/ImageGen/EC_ImageGenerateBMP.cpp \
     plugin/CodeGen/EC_CopyRightConfig.cpp \
-    plugin/CodeGen/EC_CodeTemplate.cpp
+    plugin/CodeGen/EC_CodeTemplate.cpp \
+    plugin/CodeGen/EC_CodeGenerationTemplates.cpp
 
 HEADERS += \
     inc/EC_iConvLibIF.h \
@@ -27,4 +28,5 @@ HEADERS += \
     plugin/ImageGen/EC_ImageDetail.h \
     plugin/ImageGen/EC_ImageGenerateBMP.h \
     plugin/CodeGen/EC_CopyRightConfig.h \
-    plugin/CodeGen/EC_CodeTemplate.h
+    plugin/CodeGen/EC_CodeTemplate.h \
+    plugin/CodeGen/EC_CodeGenerationTemplates.h
