@@ -9,6 +9,8 @@
 #include <QFileInfo>
 #include <QApplication>
 #include <QString>
+#include <QLabel>
+#include <QLineEdit>
 
 class EC_CodeGenerationTemplates : public QWidget
 {
@@ -26,6 +28,10 @@ public slots:
 
 private:
     /* widget */
+    QLabel* m_TempCtgyTl;
+    QLabel* m_TempObjTl;
+
+    QLineEdit* m_CodeObjNm;
     QComboBox* m_CodeTempCtgy;
     QStringList m_CodeTmpFileList;
 
