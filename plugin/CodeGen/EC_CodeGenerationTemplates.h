@@ -3,7 +3,12 @@
 
 #include <QWidget>
 #include <QComboBox>
+#include <QPushButton>
+#include <QList>
 #include <QStringList>
+#include <QFileInfo>
+#include <QApplication>
+#include <QString>
 
 class EC_CodeGenerationTemplates : public QWidget
 {
@@ -20,7 +25,18 @@ signals:
 public slots:
 
 private:
+    /* widget */
     QComboBox* m_CodeTempCtgy;
     QStringList m_CodeTmpFileList;
+
+    QPushButton* m_CodeGen;
+    /* widget */
+
+    /* Data  Analysis */
+    QList<QFileInfo> m_FileListAna;
+    /* Data  Analysis */
+
+private:
+    void tempFileListAnalysis();
 };
 #endif // EC_CODEGENERATIONTEMPLATES_H
