@@ -10,6 +10,7 @@
 #include <QApplication>
 #include <QString>
 #include <QLabel>
+#include <QFile>
 #include <QLineEdit>
 
 class EC_CodeGenerationTemplates : public QWidget
@@ -25,6 +26,8 @@ public:
 signals:
 
 public slots:
+    void objChanged();
+    void genCode();
 
 private:
     /* widget */

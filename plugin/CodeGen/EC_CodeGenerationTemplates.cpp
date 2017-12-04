@@ -13,6 +13,8 @@ EC_CodeGenerationTemplates::EC_CodeGenerationTemplates(QWidget *parent)
 {
     init();
     this->setWindowTitle("Code Generate");
+    connect(m_CodeObjNm, SIGNAL(textChanged(QString)), this, SLOT(objChanged()));
+    connect(m_CodeGen, SIGNAL(clicked(bool)), this, SLOT(genCode()));
 }
 EC_CodeGenerationTemplates::~EC_CodeGenerationTemplates()
 {
@@ -32,7 +34,64 @@ void EC_CodeGenerationTemplates::init()
 
     m_CodeGen->setText("Code Generate");
     m_CodeGen->setGeometry(330,10,200,50);
+    m_CodeGen->setEnabled(false);
 
+}
+
+void EC_CodeGenerationTemplates::objChanged()
+{
+    m_CodeGen->setEnabled(true);
+}
+
+void EC_CodeGenerationTemplates::genCode()
+{
+    m_CodeObjNm->text();
+
+    for (int i = 0; i < m_FileListAna.size(); ++i) {
+        if(0 == QString::localeAwareCompare(m_CodeTempCtgy->currentText(),m_FileListAna.at(i).baseName())) {
+            QFile* tempfile = new QFile(m_FileListAna.at(i).absoluteFilePath());
+            if(!tempfile->open(QIODevice::ReadOnly | QIODevice::Text)) {
+                qDebug()<<"[EC_CodeGenerationTemplates][genCode]Can't open the file!"<<endl;
+            }
+            if(0 == QString::localeAwareCompare("tmph",m_FileListAna.at(i).completeSuffix())) {
+                QByteArray* containHFile = new QByteArray(tempfile->readAll());
+                containHFile->replace("###",m_CodeObjNm->text().toStdString().c_str());
+                containHFile->replace("@@@",m_CodeObjNm->text().toUpper().toStdString().c_str());
+                QByteArray* genFileName = new QByteArray(m_FileListAna.at(i).baseName().toStdString().c_str());
+                genFileName->replace("###",m_CodeObjNm->text().toStdString().c_str());
+                QString temFileName = genFileName->data();
+                QFile* genHfile = new QFile( temFileName + ".h");
+                if(!genHfile->open(QIODevice::ReadWrite | QIODevice::Text)) {
+                    qDebug()<<"[EC_CodeGenerationTemplates][genCode]Can't open the file!"<<endl;
+                }
+                genHfile->write(containHFile->data(),containHFile->size());
+                genHfile->close();
+
+                delete genHfile;
+                delete containHFile;
+            }
+            if(0 == QString::localeAwareCompare("tmpc",m_FileListAna.at(i).completeSuffix())) {
+                QByteArray* containCFile = new QByteArray(tempfile->readAll());
+                containCFile->replace("###",m_CodeObjNm->text().toStdString().c_str());
+                containCFile->replace("@@@",m_CodeObjNm->text().toUpper().toStdString().c_str());
+                QByteArray* genFileName = new QByteArray(m_FileListAna.at(i).baseName().toStdString().c_str());
+                genFileName->replace("###",m_CodeObjNm->text().toStdString().c_str());
+                QString temFileName = genFileName->data();
+                QFile* genCfile = new QFile( temFileName + ".c");
+                if(!genCfile->open(QIODevice::ReadWrite | QIODevice::Text)) {
+                    qDebug()<<"[EC_CodeGenerationTemplates][genCode]Can't open the file!"<<endl;
+                }
+                genCfile->write(containCFile->data(),containCFile->size());
+                genCfile->close();
+
+                delete genCfile;
+                delete containCFile;
+            }
+
+            tempfile->close();
+            delete tempfile;
+        }
+    }
 }
 
 void EC_CodeGenerationTemplates::saveTempFiles(QStringList files)
