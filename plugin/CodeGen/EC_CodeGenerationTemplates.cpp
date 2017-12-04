@@ -1,7 +1,7 @@
-
+#include <QMessageBox>
 #include <QDebug>
-#include "EC_CodeGenerationTemplates.h"
 
+#include "EC_CodeGenerationTemplates.h"
 
 EC_CodeGenerationTemplates::EC_CodeGenerationTemplates(QWidget *parent)
     : QWidget(parent)
@@ -45,7 +45,6 @@ void EC_CodeGenerationTemplates::objChanged()
 
 void EC_CodeGenerationTemplates::genCode()
 {
-    m_CodeObjNm->text();
 
     for (int i = 0; i < m_FileListAna.size(); ++i) {
         if(0 == QString::localeAwareCompare(m_CodeTempCtgy->currentText(),m_FileListAna.at(i).baseName())) {
@@ -87,11 +86,12 @@ void EC_CodeGenerationTemplates::genCode()
                 delete genCfile;
                 delete containCFile;
             }
-
             tempfile->close();
             delete tempfile;
         }
     }
+    QMessageBox::information(NULL, NULL, "文件生成完了!");
+    this->close();
 }
 
 void EC_CodeGenerationTemplates::saveTempFiles(QStringList files)
