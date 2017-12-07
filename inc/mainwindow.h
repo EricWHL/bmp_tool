@@ -27,6 +27,9 @@ public slots:
 
 protected:
     void resizeEvent(QResizeEvent *);
+
+    bool nativeEvent(const QByteArray & eventType, void * message, long*result);
+
 private:
     QTabWidget*                m_Main;
     DL_ImageDetail*            m_Image;
@@ -35,6 +38,8 @@ private:
     EC_iConvLibIF*             m_convLib;
     EC_Zipc*                   m_Zipc;
     EC_CodeGenerationTools*    m_CodeGenTool;
+
+    char FirstDriveFromMask (unsigned long unitmask);
 };
 
 #endif // MAINWINDOW_H

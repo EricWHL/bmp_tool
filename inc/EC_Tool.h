@@ -17,14 +17,21 @@ class EC_Tool : public QWidget
 public:
     explicit EC_Tool(QWidget *parent = 0);
 
+    void addUsbDev(QString dev);
+    void delUsbDev(QString dev);
 
 signals:
 
 public slots:
+    void genFiles();
+
 private:
     void init();
     void usbToolsInit();
 
+
+
+private:
     QGroupBox* m_UsbTlGp;
     QComboBox* m_UsbRdLst;
     QPushButton* m_UsbGrtBtn;

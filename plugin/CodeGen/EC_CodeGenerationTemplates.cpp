@@ -65,7 +65,7 @@ void EC_CodeGenerationTemplates::genCode()
                 }
                 genHfile->write(containHFile->data(),containHFile->size());
                 genHfile->close();
-
+                delete genFileName;
                 delete genHfile;
                 delete containHFile;
             }
@@ -82,7 +82,7 @@ void EC_CodeGenerationTemplates::genCode()
                 }
                 genCfile->write(containCFile->data(),containCFile->size());
                 genCfile->close();
-
+                delete genFileName;
                 delete genCfile;
                 delete containCFile;
             }
