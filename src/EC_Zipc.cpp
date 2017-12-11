@@ -1,5 +1,7 @@
-#include "EC_Zipc.h"
+
 #include <QStandardItemModel>
+
+#include "EC_Zipc.h"
 
 EC_Zipc::EC_Zipc(QWidget *parent)
     : QWidget(parent)
