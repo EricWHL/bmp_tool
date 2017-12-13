@@ -10,7 +10,7 @@
 class DL_ImageDetail;
 class DL_ImageBinary;
 class EC_Tool;
-class EC_Zipc;
+class EC_StsMgr;
 class EC_CodeGenerationTools;
 
 
@@ -36,7 +36,7 @@ private:
     DL_ImageBinary*            m_ImageLibrary;
     EC_Tool*                   m_Tool;
     EC_iConvLibIF*             m_convLib;
-    EC_Zipc*                   m_Zipc;
+    EC_StsMgr*                   m_StsMgr;
     EC_CodeGenerationTools*    m_CodeGenTool;
 
     char FirstDriveFromMask (unsigned long unitmask);

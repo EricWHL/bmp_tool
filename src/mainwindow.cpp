@@ -10,7 +10,7 @@
 #include "EC_ImageDetail.h"
 #include "EC_ImageBinary.h"
 #include "EC_Tool.h"
-#include "EC_Zipc.h"
+#include "EC_StsMgr.h"
 #include "EC_CodeGenerationTools.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -20,14 +20,14 @@ MainWindow::MainWindow(QWidget *parent)
     , m_ImageLibrary(new DL_ImageBinary(this))
     , m_Tool(new EC_Tool(this))
     , m_convLib (new EC_iConvLibIF)
-    , m_Zipc (new EC_Zipc)
+    , m_StsMgr (new EC_StsMgr)
     , m_CodeGenTool(new EC_CodeGenerationTools)
 {
     m_Main->addTab(m_ImageLibrary,"加载图片数据文件");
     m_Main->addTab(m_Image,"图片详细信息");
     m_Main->addTab(m_CodeGenTool,"代码生成工具");
     m_Main->addTab(m_Tool,"工具库");
-    m_Main->addTab(m_Zipc,"状态管理");
+    m_Main->addTab(m_StsMgr,"状态管理");
 
     this->setWindowTitle("Tools Box");
 
