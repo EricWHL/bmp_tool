@@ -53,6 +53,10 @@ void EC_StsMgr::addAction()
     if(!m_EditWidget) {
         return;
     }
+    m_EditWidget->insertRow(m_EditWidget->rowCount());
+
+    m_EditWidget->insertRow(m_EditWidget->rowCount());
+
     QMessageBox::information(NULL, NULL, "addAction");
 }
 
@@ -61,6 +65,7 @@ void EC_StsMgr::addStatus()
     if(!m_EditWidget) {
         return;
     }
+    m_EditWidget->insertColumn(m_EditWidget->columnCount());
     QMessageBox::information(NULL, NULL, "addStatus");
 }
 
