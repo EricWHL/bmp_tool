@@ -4,7 +4,7 @@ INCLUDEPATH += inc
 INCLUDEPATH += plugin/CodeGen
 INCLUDEPATH += plugin/ImageGen
 INCLUDEPATH += plugin/StsMgr
-
+DEFINES-= UNICODE
 SOURCES += \
     src/EC_iConvLibIF.cpp \
     src/EC_Tool.cpp \

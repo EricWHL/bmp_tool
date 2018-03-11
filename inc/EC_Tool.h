@@ -8,6 +8,11 @@
 #include <QLineEdit>
 #include <QLabel>
 #include <QComboBox>
+#include <QFileDevice>
+#include <QFileSystemWatcher>
+#include <QFile>
+#include <QFileInfoList>
+#include <QDir>
 
 class PrivateUsbTools;
 
@@ -19,6 +24,8 @@ public:
 
     void addUsbDev(QString dev);
     void delUsbDev(QString dev);
+    QFileInfoList GetFileList(QString path);
+    void readBuffer();
 
 signals:
 
