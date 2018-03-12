@@ -1,0 +1,59 @@
+Messagebox "我要开始恢复啦！"                   （提示命令对话框）"我要开始恢复啦！"
+Assign m1 0                                     （创建保存到m1）
+Assign n1 0                                      （创建保存到n1）
+{                                                 必须有的
+Label aa                                          标记
+Find 0x6D646174 down                              查找 0x6D646174 向下
+IfFound                                           如果发现
+Assign m2 currentpos                              创建 保存m2 光标移动位置
+Ifequal (m2%512) 4                                搜索起始位置M2 512=4
+Move -4                                           移动光标 向前4个字节
+Assign m3 currentpos                              创建 保存m3 光标移动位置
+Block1 m3                                         选块 m3
+read a1 1                                         读取 查看 a1 
+read a2 1                                         读取 查看 a2
+read a3 1                                         读取 查看 a3
+read a4 1                                         读取 查看 a4
+assign data (a1*16777216+a2*65536+a3*256+a4)      创建十六进制值data
+move data                                         移动光标data
+Assign m5 currentpos                              创建 M5 光标移动位置保存
+Block2 m5                                         选择块 M5
+else                                              如果不是则
+Goto m2                                           转移到M2
+move 10                                           移动光标 向后10个字节
+JumpTo aa                                         跳转到
+Else                                              如果不是则
+Move 1                                            移动光标 向后1个字节
+JumpTo aa                                         跳转到
+EndIf                                             结束
+
+move 10                                           移动光标 向后10个字节
+Inc m1                                            以上是M1
+CopyIntoNewFile "C:\0605\MVI_+m1+.MOV"            复制新文件到
+
+Label cc                                          标记
+Find 0x0000001866747970 down                      查找 0x0000001866747970 向下
+IfFound                                           如果发现
+Assign n2 currentpos                              创建 保存n2 光标移动位置
+Block1 n2                                         选块 N2
+move 0x18                                         移动光标位置 横向1纵向8
+read a1 1                                         读取 查看 a1
+read a2 1                                         读取 查看 a2
+read a3 1                                         读取 查看 a3
+read a4 1                                         读取 查看 a4
+assign data (a1*16777216+a2*65536+a3*256+a4)      创建十六进制值data
+move (data-5)                                     移动光标
+Assign n3 currentpos                              创建 n3 光标移动位置保存
+Block2 n3                                         选择块 n3
+Copy                                              复制
+Else                                              如果不是则
+Move 1                                            移动光标 向后1个字节
+JumpTo cc                                         跳转到
+EndIf                                             结束
+Inc n1                                            以上的n1
+Open "C:\0605\MVI_+m1+.MOV"                       打开
+Paste                                             粘贴
+save                                              保存
+close                                             关闭
+}[unlimited]                                      循环
+Messagebox "恢复完成啦，请联系工程师检查数据。"     提示             
