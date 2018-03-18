@@ -13,7 +13,7 @@
 #include <QFile>
 #include <QFileInfoList>
 #include <QDir>
-
+#include <QProgressBar>
 class PrivateUsbTools;
 
 class EC_Tool : public QWidget
@@ -25,7 +25,8 @@ public:
     void addUsbDev(QString dev);
     void delUsbDev(QString dev);
     QFileInfoList GetFileList(QString path);
-    void readBuffer();
+    void readBuffer(QString path);
+    quint64 getDiskFreeSpace(QString driver);
 
 signals:
 
@@ -44,6 +45,7 @@ private:
     QPushButton* m_UsbGrtBtn;
     QLabel* m_UsbRdPt;
     QLabel* m_UsbFlPt;
+    QProgressBar* m_pBar;
 };
 
 #endif // DL_TOOL_H
